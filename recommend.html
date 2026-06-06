@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko" class="antialiased">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>얼마 받았더라? — 금액 추천 결과</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css">
+    <link href="https://api.fontshare.com/v2/css?f[]=geist@400,500,600,700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Pretendard'], display: ['Geist'] },
+                    colors: { surface: { 50: '#FDFBF8' } }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-zinc-900 flex flex-col justify-center items-center min-h-screen p-4 gap-4">
+    <div class="w-full max-w-[360px] h-[640px] bg-surface-50 rounded-[2.5rem] shadow-2xl border-4 border-zinc-800 overflow-hidden flex flex-col p-6 relative">
+        <span class="absolute top-10 left-8 text-amber-400 text-lg">✦</span>
+        <iconify-icon icon="noto:balloon" class="absolute top-10 right-8 text-xl"></iconify-icon>
+
+        <div class="flex-1 flex flex-col justify-center w-full mt-4">
+            <div class="text-center mb-7">
+                <span class="text-xs font-bold text-zinc-400 block mb-1">추천 금액</span>
+                <h2 id="total-amount-display" class="text-4xl font-black text-zinc-950 tracking-tight"> </h2>
+                <p class="text-xs font-medium text-zinc-400 mt-2">우리 사이를 고려한 가장 센스 있는 금액이에요.</p>
+            </div>
+            
+            <div class="bg-white border border-zinc-100 rounded-3xl p-5 shadow-sm">
+                <h4 class="text-xs font-bold text-zinc-400 tracking-wide uppercase mb-3.5">금액 산정 이유</h4>
+                <div id="reason-container" class="text-sm font-medium text-zinc-600 leading-relaxed space-y-4">
+                    </div>
+            </div>
+        </div>
+
+        <div class="flex gap-2.5 w-full pb-2 mt-auto">
+            <button onclick="retryBack()" class="w-1/2 bg-white border border-zinc-200 text-zinc-700 font-bold py-3.5 rounded-xl text-sm hover:bg-zinc-50 transition-all">
+                다시 계산하기
+            </button>
+            <button onclick="goToNext()" class="w-1/2 bg-zinc-950 text-white font-bold py-3.5 rounded-xl text-sm hover:bg-zinc-800 transition-all flex items-center justify-center">
+                기록하기
+            </button>
+        </div>
+    </div>
+
+    <div class="w-full max-w-[360px] bg-zinc-800 rounded-xl p-4 text-xs font-mono text-emerald-400 border border-zinc-700">
+        <p class="font-bold text-white mb-1">📊 현재 페이지 데이터 결과:</p>
+        <pre id="debug-view">데이터를 불러오는 중...</pre>
+    </div>
+
+    <script>
+        // 1. 1~5단계에서 수집되어 넘어온 데이터 로드
+        const surveyData = {
+            event_type: localStorage.getItem('event_type'), 
+            relation_type: localStorage.getItem('relation_type'), 
+            intimacy_level: localStorage.getItem('intimacy_level'), 
+            known_period: localStorage.getItem('known_period'),
+            contact_frequency: localStorage.getItem('contact_frequency')
+        };
+
+        const textMapping = {
+            event: { 
+                wedding: '축하의 마음이 가득한 결혼식 축하 자리', 
+                funeral: '깊은 애도를 전하는 장례식', 
+                pregnancy: '새로운 생명을 기다리는 임신 축하 자리', 
+                childbirth: '세상에 나온 아기를 환영하는 출산 축하 자리', 
+                first_birthday: '아기의 첫 번째 생일을 맞이하는 돌잔치', 
+                promotion_retirement: '소중한 노고를 기리는 자리' 
+            },
+            relation: {
+                friend: '학교/사회 친구', peer: '동기 혹은 동료',
+                family: '가족 관계', relative: '친척 관계',
+                boss: '직장 선배', junior: '직장 후배',
+                acquaintance: '아는 지인', client: '비즈니스'
+            },
+            intimacy: { 
+                very_close: '눈빛만 봐도 통하는 영혼의 단짝', 
+                close: '단체방 말고 개인톡도 자주 하는 사이', 
+                acquaintance: '만나면 반갑지만 둘만 남으면 살짝 뚝딱거리는 사이', 
+                business: '비즈니스 만남이 더 익숙한 공적 관계'
+            },
+            contact: { 
+                daily: '거의 매일 연락하는 중', 
+                weekly: '주 1회 이상 자주 교류 중', 
+                monthly: '월 1회 이상 완만하게 연락 중', 
+                few_months: '계절이 바뀔 때쯤 한 번씩 안부를 묻는 중', 
+                rarely: '최근 연락이 다소 뜸한 상태' 
+            },
+            period: { 
+                under_1y: '알고 지낸 지 1년 미만', 
+                '1y_3y': '서로의 일상에 스며든 1~3년 차', 
+                '3y_5y': '희로애락을 꽤 많이 공유한 3~5년 차', 
+                over_5y: '강산도 변한다는 5년의 세월을 함께한 인연'
+            }
+        };
+
+        function calculateRecommendedAmount(data) {
+            const relationScores = {
+                'family': 4, 'relative': 3, 'friend': 2.5, 'boss': 1.5,
+                'peer': 2, 'junior': 1.5, 'client': 1, 'acquaintance': 1
+            };
+
+            const intimacyScores = { 'very_close': 6, 'close': 4, 'acquaintance': 2, 'business': 0 };
+            const contactScores = { 'daily': 5, 'weekly': 4, 'monthly': 2, 'few_months': 1, 'rarely': 0 };
+            const periodScores = { 'under_1y': 0, '1y_3y': 0.5, '3y_5y': 1, 'over_5y': 2 };
+
+            const baseAmounts = {
+                'wedding': 100000, 'funeral': 100000, 'first_birthday': 70000,        
+                'childbirth': 50000, 'pregnancy': 50000, 'promotion_retirement': 50000   
+            };
+
+            const score1 = relationScores[data.relation_type] || 0;
+            const score2 = intimacyScores[data.intimacy_level] || 0;
+            const score3 = contactScores[data.contact_frequency] || 0;
+            const score4 = periodScores[data.known_period] || 0;
+
+            const totalScore = score1 + score2 + score3 + score4;
+
+            let additionalAmount = 0;
+            if (totalScore >= 15) additionalAmount = 200000;      
+            else if (totalScore >= 12) additionalAmount = 150000; 
+            else if (totalScore >= 9) additionalAmount = 100000;  
+            else if (totalScore >= 6) additionalAmount = 50000;   
+            else if (totalScore >= 3) additionalAmount = 30000;   
+            else additionalAmount = 0;                            
+
+            const baseAmount = baseAmounts[data.event_type] || 100;  
+            return baseAmount + additionalAmount;
+        }
+
+        // 💡 유저 데이터를 자연스러운 문맥의 문장으로 자동 조립
+        function buildReasonStory(data) {
+            const { event_type, relation_type, intimacy_level, contact_frequency, known_period } = data;
+
+            if (!event_type || !relation_type || !intimacy_level || !contact_frequency || !known_period) {
+                return `<p class="text-zinc-400 text-center py-2"> 이전 선택 데이터가 부족해요.</p>`;
+            }
+
+            // 이벤트별 대표 미니 이모지 매핑
+            const eventEmojis = {
+                wedding: '💍', funeral: '🙏', pregnancy: '👶', childbirth: '🍼', first_birthday: '🎂', promotion_retirement: '👏'
+            };
+            const emoji = eventEmojis[event_type] || '✨';
+
+            const eventText = textMapping.event[event_type];
+            const relationText = textMapping.relation[relation_type];
+            const intimacyText = textMapping.intimacy[intimacy_level];
+            const contactText = textMapping.contact[contact_frequency];
+            const periodText = textMapping.period[known_period];
+
+            return `
+                <div class="flex items-start gap-2.5 text-zinc-800 font-semibold border-b border-zinc-100 pb-2.5 mb-2.5">
+                    <span class="text-base">${emoji}</span>
+                    <p>${eventText}에 마음을 전하시네요.</p>
+                </div>
+                <div class="space-y-2 text-zinc-600 font-medium pl-0.5 text-[13px] tracking-tight">
+                    <div class="flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-zinc-300"></span>
+                        <p>두 분은 <span class="text-zinc-900 font-bold">${relationText}</span>이며, <span class="text-zinc-900 font-bold">${intimacyText}</span>입니다.</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-zinc-300"></span>
+                        <p>${periodText} 동안 인연을 이어왔어요.</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-zinc-300"></span>
+                        <p>최근에는 <span class="text-zinc-900 font-bold">${contactText}</span>.</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 화면 초기화 및 실행 함수
+        window.onload = function() {
+            // 디버그 뷰 컴포넌트 출력
+            document.getElementById('debug-view').textContent = JSON.stringify(surveyData, null, 2);
+
+            // [추천 금액 계산 및 반영]
+            const finalCalculatedAmount = calculateRecommendedAmount(surveyData);
+            document.getElementById('total-amount-display').textContent = finalCalculatedAmount.toLocaleString() + '원';
+
+            // [💡 수정 포인트 4]: 리스트 아이템 개별 추가 구조 대신, 스토리 결합 엔진 결과물을 한 번에 HTML 주입
+            const reasonContainer = document.getElementById('reason-container');
+            reasonContainer.innerHTML = buildReasonStory(surveyData);
+            
+            // 데이터 영속성 캐싱 업데이트 저장
+            localStorage.setItem('recommended_amount', finalCalculatedAmount);
+
+            if (window.Iconify) {
+                window.Iconify.scan();
+            }
+        };
+
+        // 다시 계산하기
+        function retryBack() {
+            localStorage.clear();
+            window.location.href = '5step.html';
+        }
+
+        // 기록하기 버튼 
+        function goToNext() {
+            console.log("👉 추천 완료 | 수식 연산 금액 반영 및 결과값 누적 유지 완료");
+            window.location.href = 'mail-alarm.html';
+        }
+    </script>
+</body>
+</html>

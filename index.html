@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko" class="antialiased">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>얼마 받았더라?</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css">
+    <link href="https://api.fontshare.com/v2/css?f[]=geist@400,500,600,700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Pretendard'], display: ['Geist'] },
+                    colors: { surface: { 50: '#FDFBF8' } }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-zinc-900 flex flex-col justify-center items-center min-h-screen p-4">
+    <!-- 모바일 프레임 컨테이너 -->
+    <div class="w-full max-w-[360px] h-[640px] bg-surface-50 rounded-[2.5rem] shadow-2xl border-4 border-zinc-800 overflow-hidden flex flex-col justify-between p-6 relative select-none">
+        
+        <!-- 상단 헤더 영역 -->
+        <div class="flex justify-between items-center w-full pt-1">
+            <span class="font-display font-bold text-lg text-zinc-900 tracking-tight">얼마 받았더라?</span>
+            <button class="w-8 h-8 flex items-center justify-center active:scale-95 transition-transform">
+                <iconify-icon icon="solar:hamburger-menu-linear" class="text-xl text-zinc-900"></iconify-icon>
+            </button>
+        </div>
+
+        <!-- 중앙 메인 콘텐츠 및 이미지 레이어 영역 -->
+        <div class="flex-1 flex flex-col justify-between relative mt-6">
+            <!-- 텍스트 안내 정보 -->
+            <div class="z-10">
+                <h1 class="text-[26px] font-extrabold text-zinc-950 leading-tight tracking-tight mb-4">
+                    친구 결혼식인데<br>얼마 내야 하지?
+                </h1>
+                <p class="text-sm font-semibold text-zinc-500 leading-relaxed">
+                    관계와 친밀도를 입력하면<br> 경조사 금액을<br>추천해드려요!
+                </p>
+            </div>
+
+            <!-- 이미지 배치 -->
+            <div class="absolute bottom-12 right-[-12px] w-[210px] h-[310px] overflow-hidden pointer-events-none">
+
+            </div>
+        </div>
+
+        <!-- 하단 액션 인터페이스 (버튼 및 스크롤 인디케이터) -->
+        <div class="w-full flex flex-col items-center gap-3 pb-1 z-10">
+            <!-- 시작 페이지(test2.html)로 진입하는 메인 액션 버튼 -->
+            <button 
+                onclick="startSurvey()" 
+                class="w-full bg-zinc-950 text-white font-bold py-4 rounded-2xl text-sm shadow-md hover:bg-zinc-800 active:scale-[0.98] transition-all duration-200"
+            >
+                지금 추천받기
+            </button>
+            
+            <!-- 하단 화살표 데코레이션 -->
+            <div class="mt-1">
+                <iconify-icon icon="solar:alt-arrow-down-linear" class="text-zinc-500 text-lg"></iconify-icon>
+            </div>
+        </div>
+        
+    </div>
+
+    <script>
+        // 새로운 유저가 테스트를 시작할 때 기존 브라우저 창고를 깔끔하게 초기화하고 스텝 2로 출발
+        function startSurvey() {
+            localStorage.clear();
+            console.log("🚀 얼.받? 경조사 계산 세션 시작 | 저장소 초기화 완료");
+            window.location.href = '5step.html';
+        }
+    </script>
+</body>
+</html>
