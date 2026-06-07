@@ -34,9 +34,11 @@
         select option { color: #27272a; }
     </style>
 </head>
-<body>
-    <div class="w-full min-h-screen bg-surface-50 flex flex-col justify-between relative">
-
+<body class="bg-surface-50 flex flex-col justify-center items-center min-h-screen gap-4">
+    <div class="w-full min-h-screen bg-surface-50 flex flex-col justify-between p-6 relative">
+    <!-- 
+    <div class="w-full max-w-[360px] h-[640px] bg-surface-50 rounded-[2.5rem] shadow-2xl border-4 border-zinc-800 overflow-y-auto flex flex-col justify-between p-6 relative">
+    -->
         <!-- 타이틀 좌측 정렬 배치 및 우측 상단 홈 아이콘 링크 구성 -->
         <div class="w-full pt-2 mb-6">
             <div class="flex justify-between items-start w-full">
@@ -142,8 +144,8 @@
         </div>
     </div>
 
-    <div class="w-full max-w-[360px] bg-zinc-800 rounded-xl p-4 text-xs font-mono text-emerald-400 border border-zinc-700">
-        <p class="font-bold text-white mb-1">📊 현재 브라우저 창고(localStorage) 데이터 상태:</p>
+    <div class="w-full max-w-[360px] justify-center bg-zinc-800 rounded-xl p-4 text-xs font-mono text-emerald-400 border border-zinc-700">
+        <p class="font-bold text-white mb-1">📊 현재 localStorage 데이터 상태:</p>
         <pre id="debug-view">데이터 동기화 중...</pre>
     </div>
 
