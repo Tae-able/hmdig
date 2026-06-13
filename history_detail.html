@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+    <html lang="ko">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>내 추천 기록</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
+</head>
+
+<body class="bg-[#F8F7F5]">
+
+<div class="p-6">
+    <!-- 상단 헤더 -->
+    <div class="flex items-center justify-between mb-10">
+        <button onclick="history.back()">
+            <iconify-icon icon="solar:alt-arrow-left-linear" class="text-3xl text-zinc-700"></iconify-icon>
+        </button>
+        <div class="font-bold text-zinc-700 text-lg"> 얼마 받았더라? </div>
+        <button>
+            <iconify-icon icon="solar:hamburger-menu-linear" class="text-3xl text-zinc-700"></iconify-icon>
+        </button>
+    </div>
+
+    <!-- 타이틀 -->
+    <h1 class="text-3xl leading-tight font-extrabold text-zinc-700 mb-4">
+        친구 결혼식
+    </h1>
+ 
+    <div class="bg-white rounded-2xl p-6 mb-6">
+        <p class="text-zinc-500 mb-2">
+            추천 금액
+        </p>
+        <h2 class="text-5xl font-extrabold text-blue-600">
+            100,000원
+        </h2>
+    </div>
+
+    <div class="bg-white rounded-2xl p-6 mb-4">
+        <div class="flex justify-between py-3">
+            <span>관계</span>
+            <span>친구</span>
+        </div>
+        <div class="flex justify-between py-3">
+            <span>친밀도</span>
+            <span>8 / 10</span>
+        </div>
+        <div class="flex justify-between py-3">
+            <span>관계 기간</span>
+            <span>7년</span>
+        </div>
+        <div class="flex justify-between py-3">
+            <span>참석 여부</span>
+            <span>참석</span>
+        </div>
+    </div>
+
+    <div class="bg-blue-50 rounded-xl p-5">
+        <p class="text-blue-700 text-sm leading-relaxed">
+            비슷한 조건의 사용자들이 가장 많이 선택한
+            축의금 기준을 반영한 결과입니다.
+        </p>
+    </div>
+
+    <button onclick="location.href='5step.html'" class="w-full mt-8 h-14 rounded-xl bg-zinc-900 text-white font-bold">
+        다시 추천받기
+    </button>
+</div>
+
+</body>
+</html>

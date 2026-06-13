@@ -13,7 +13,14 @@
             theme: {
                 extend: {
                     fontFamily: { sans: ['Pretendard'], display: ['Geist'] },
-                    colors: { surface: { 50: '#FDFBF8' } }
+                    colors: { 
+                        surface: { 50: '#FDFBF8' },
+                        brand: {
+                            600:'#0066FF',       /* 메인 text */
+                            DEFAULT: '#0D6EFD',  /* 메인 button */ 
+                            bg: '#E8F2FF'        /* 연한 배경용 블루 */
+                        }
+                    }
                 }
             }
         }
@@ -44,9 +51,9 @@
             <div class="flex justify-between items-start w-full">
                 <div class="text-left pl-0.5">
                     <h2 class="font-display font-bold text-lg text-zinc-900 tracking-tight">맞춤 금액 추천</h2>
-                    <p class="text-xs font-medium text-zinc-400 mt-1.5 leading-relaxed">
+                    <!--<p class="text-xs font-medium text-zinc-400 mt-1.5 leading-relaxed">
                         관계와 친밀도를 입력하면<br>나에게 맞는 경조사비를 추천드려요!
-                    </p>
+                    </p>-->
                 </div>
                 <a href="index.html" class="w-8 h-8 flex items-center justify-center active:scale-95 transition-transform" title="홈으로 이동">
                     <iconify-icon icon="boxicons:home-filled" class="text-xl text-zinc-800"></iconify-icon>
@@ -59,7 +66,7 @@
                 <!-- 1번 문항 -->
                 <div class="flex flex-col gap-2.5">
                     <div class="flex items-center gap-2 pl-0.5">
-                        <span class="w-4 h-4 rounded-full bg-zinc-900 text-white flex items-center justify-center text-[10px] font-bold font-display">1</span>
+                        <!-- <span class="w-4 h-4 rounded-full bg-zinc-900 text-white flex items-center justify-center text-[10px] font-bold font-display">1</span> -->
                         <h3 class="text-sm font-bold text-zinc-800">어떤 행사인가요?</h3>
                     </div>
                     <select id="event_type" onchange="saveToStorage()" required class="w-full bg-white border border-zinc-200 text-zinc-800 text-xs font-semibold rounded-xl p-3 shadow-sm focus:outline-none focus:border-zinc-400">
@@ -75,7 +82,7 @@
 
                 <div class="flex flex-col gap-2.5">
                     <div class="flex items-center gap-2 pl-0.5">
-                        <span class="w-4 h-4 rounded-full bg-zinc-900 text-white flex items-center justify-center text-[10px] font-bold font-display">2</span>
+                        <!-- <span class="w-4 h-4 rounded-full bg-zinc-900 text-white flex items-center justify-center text-[10px] font-bold font-display">2</span> -->
                         <h3 class="text-sm font-bold text-zinc-900">마음을 전하실 분과의 관계는? </h3>
                     </div>
                     <select id="relation_type" onchange="saveToStorage()" required class="w-full bg-white border border-zinc-200 text-zinc-800 text-xs font-semibold rounded-xl p-3 shadow-sm focus:outline-none focus:border-zinc-400">
@@ -94,7 +101,7 @@
 
                 <div class="flex flex-col gap-2.5">
                     <div class="flex items-center gap-2 pl-0.5">
-                        <span class="w-4 h-4 rounded-full bg-zinc-900 text-white flex items-center justify-center text-[10px] font-bold font-display">3</span>
+                        <!-- <span class="w-4 h-4 rounded-full bg-zinc-900 text-white flex items-center justify-center text-[10px] font-bold font-display">3</span> -->
                         <h3 class="text-sm font-bold text-zinc-900">얼마나 가깝다고 느끼나요?</h3>
                     </div>
                     <select id="intimacy_level" onchange="saveToStorage()" required class="w-full bg-white border border-zinc-200 text-zinc-800 text-xs font-semibold rounded-xl p-3 shadow-sm focus:outline-none focus:border-zinc-400">
@@ -108,7 +115,7 @@
 
                 <div class="flex flex-col gap-2.5">
                     <div class="flex items-center gap-2 pl-0.5">
-                        <span class="w-4 h-4 rounded-full bg-zinc-900 text-white flex items-center justify-center text-[10px] font-bold font-display">4</span>
+                        <!-- <span class="w-4 h-4 rounded-full bg-zinc-900 text-white flex items-center justify-center text-[10px] font-bold font-display">4</span> -->
                         <h3 class="text-sm font-bold text-zinc-900">최근 얼마나 자주 연락했나요?</h3>
                     </div>
                     <select id="contact_frequency" onchange="saveToStorage()" required class="w-full bg-white border border-zinc-200 text-zinc-800 text-xs font-semibold rounded-xl p-3 shadow-sm focus:outline-none focus:border-zinc-400">
@@ -123,7 +130,7 @@
 
                 <div class="flex flex-col gap-2.5">
                     <div class="flex items-center gap-2 pl-0.5">
-                        <span class="w-4 h-4 rounded-full bg-zinc-900 text-white flex items-center justify-center text-[10px] font-bold font-display">5</span>
+                        <!-- <span class="w-4 h-4 rounded-full bg-zinc-900 text-white flex items-center justify-center text-[10px] font-bold font-display">5</span> -->
                         <h3 class="text-sm font-bold text-zinc-900">알고 지낸 지 얼마나 됐나요?</h3>
                     </div>
                     <select id="known_period" onchange="saveToStorage()" required class="w-full bg-white border border-zinc-200 text-zinc-800 text-xs font-semibold rounded-xl p-3 shadow-sm focus:outline-none focus:border-zinc-400">
@@ -138,7 +145,7 @@
         </div>
 
         <div class="w-full pb-2">
-            <button onclick="goToResult()" class="w-full bg-zinc-950 text-white font-bold py-3.5 rounded-xl text-sm hover:bg-zinc-800 transition-all flex items-center justify-center gap-1">
+            <button onclick="goToResult()" class="w-full bg-brand text-white font-bold py-3.5 rounded-xl text-sm hover:bg-brand/80 transition-all flex items-center justify-center gap-1">
                 적정 금액 추천 받기
             </button>
         </div>

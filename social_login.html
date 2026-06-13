@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko" class="antialiased">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>얼마 받았더라?</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css">
+    <link href="https://api.fontshare.com/v2/css?f[]=geist@400,500,600,700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Pretendard'], display: ['Geist'] },
+                    colors: { 
+                        surface: { 50: '#FDFBF8' },
+                        brand: {
+                            600:'#0066FF',       /* 메인 text */
+                            DEFAULT: '#0D6EFD',  /* 메인 button */ 
+                            bg: '#E8F2FF'        /* 연한 배경용 블루 */
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-[#F7F6F4] min-h-screen">
+<div class="px-6 py-6">
+    <!-- 헤더 -->
+    <div class="flex items-center justify-between">
+        <button onclick="history.back()">
+            <iconify-icon icon="solar:alt-arrow-left-linear" class="text-3xl text-zinc-700"></iconify-icon>
+        </button>
+        <div class="font-bold text-zinc-700 text-xl"> 얼마 받았더라? </div>
+        <button>
+            <iconify-icon icon="solar:hamburger-menu-linear" class="text-3xl text-zinc-700"></iconify-icon>
+        </button>
+    </div>
+
+    <!-- 제목 -->
+    <div class="mt-10 mb-12">
+        <h1 class="text-2xl font-extrabold leading-[1.45] text-zinc-700">
+            로그인하면<br>
+            기록을<br>
+            저장할 수 있어요.
+        </h1>
+    </div>
+
+    <!-- 카카오 -->
+    <a href="social_link.html" class="w-full h-[62px] bg-[#FEE500] rounded-xl flex items-center px-5 mb-4">
+        <span class="text-4xl mr-4 mt-2">
+            <iconify-icon icon="ri:kakao-talk-fill" class="text-zinc-700"></iconify-icon>
+        </span>
+        <span class="font-semibold text-zinc-900"> 카카오로 로그인 </span>
+    </a>
+
+    <!-- 네이버 -->
+    <a href="social_link.html" class="w-full h-[62px] bg-[#03C75A] rounded-xl flex items-center px-6 mb-4">
+        <span class="text-2xl text-white mr-5 mt-2">
+            <iconify-icon icon="simple-icons:naver" class="text-white"></iconify-icon>
+        </span>
+        <span class="font-semibold text-white"> 네이버로 로그인 </span>
+    </a>
+
+    <!-- 페이스북 -->
+    <a href="social_link.html" class="w-full h-[62px] bg-[#1877F2] rounded-xl flex items-center px-5 mb-4">
+        <span class="text-3xl font-bold text-white mr-5 mt-2">
+            <iconify-icon icon="ri:facebook-fill" class="text-white"></iconify-icon>
+        </span>
+        <span class="font-semibold text-white"> 페이스북으로 로그인 </span>
+    </a>
+
+    <!-- 구글 -->
+    <a href="social_link.html" class="w-full h-[62px] bg-white border border-zinc-200 rounded-xl flex items-center px-6 mb-4">
+        <span class="text-3xl mr-5 mt-2">
+            <iconify-icon icon="ri:google-fill" class="text-zinc-700"></iconify-icon>
+        </span>
+        <span class="font-semibold text-zinc-700"> 구글 계정으로 로그인 </span>
+
+    </a>
+
+    <!-- 애플 -->
+    <a href="social_link.html" class="w-full h-[62px] bg-[#111111] rounded-xl flex items-center px-6">
+        <span class="text-3xl mr-5 mt-1 text-white">
+            <iconify-icon icon="ri:apple-fill" class="text-white"></iconify-icon>
+        </span>
+        <span class="font-semibold text-white"> 애플 계정으로 로그인 </span>
+    </a>
+
+    <!-- 하단 문구 -->
+    <div class="mt-16">
+        <p class="text-sm text-zinc-600 leading-relaxed">
+            소셜 로그인 시 서비스 이용을 위한 기본 정보만 사용하며,<br>
+            추가적인 게시 권한이나 개인정보는 요청하지 않습니다.
+        </p>
+    </div>
+</div>
+
+</body>
+</html>

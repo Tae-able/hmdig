@@ -46,7 +46,7 @@
                 다시 계산하기
             </button>
             <button onclick="goToNext()" class="w-1/2 bg-zinc-950 text-white font-bold py-3.5 rounded-xl text-sm hover:bg-zinc-800 transition-all flex items-center justify-center">
-                기록하기
+                저장하기
             </button>
         </div>
     </div>
@@ -73,7 +73,7 @@
                 pregnancy: '새로운 생명을 기다리는 임신 축하 자리', 
                 childbirth: '세상에 나온 아기를 환영하는 출산 축하 자리', 
                 first_birthday: '아기의 첫 번째 생일을 맞이하는 돌잔치', 
-                promotion_retirement: '소중한 노고를 기리는 자리' 
+                promotion_retirement: '소중한 노고를 기리는 자리'
             },
             relation: {
                 friend: '학교/사회 친구', peer: '동기 혹은 동료',
@@ -159,7 +159,7 @@
             return `
                 <div class="flex items-start gap-2.5 text-zinc-800 font-semibold border-b border-zinc-100 pb-2.5 mb-2.5">
                     <span class="text-base">${emoji}</span>
-                    <p>${eventText}에 마음을 전하시네요.</p>
+                    <p>${eventText}</p>
                 </div>
                 <div class="space-y-2 text-zinc-600 font-medium pl-0.5 text-[13px] tracking-tight">
                     <div class="flex items-center gap-2">
@@ -208,7 +208,7 @@
         // 기록하기 버튼 
         function goToNext() {
             console.log("👉 추천 완료 | 수식 연산 금액 반영 및 결과값 누적 유지 완료");
-            window.location.href = 'mail-alarm.html';
+            window.location.href = 'history_save.html';
         }
     </script>
 </body>

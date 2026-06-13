@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+    <html lang="ko">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>내 추천 기록</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
+</head>
+
+<body class="bg-[#F8F7F5]">
+    <div class="p-6">
+        <!-- 상단 헤더 -->
+        <div class="flex items-center justify-between mb-10">
+            <button onclick="history.back()">
+                <iconify-icon icon="solar:alt-arrow-left-linear" class="text-3xl text-zinc-700"></iconify-icon>
+            </button>
+            <div class="font-bold text-zinc-700 text-lg"> 얼마 받았더라? </div>
+            <button>
+                <iconify-icon icon="solar:hamburger-menu-linear" class="text-3xl text-zinc-700"></iconify-icon>
+            </button>
+        </div>
+
+        <!-- 타이틀 -->
+        <h1 class="text-2xl leading-tight font-extrabold text-zinc-700 mb-4">
+            저장된 추천 기록
+        </h1>
+        <p class="text-zinc-500 text-lg leading-relaxed mb-12">
+            총 1개의 추천 결과가 있어요.
+        </p>
+
+        <!-- 카드 -->
+        <a href="history_detail.html">
+            <div class="bg-white rounded-2xl p-5 mb-4 shadow-sm">
+                <div class="flex justify-between mb-2">
+                    <span class="font-bold">친구 결혼식</span>
+                    <span class="text-blue-600 font-bold">
+                        100,000원
+                    </span>
+                </div>
+                <p class="text-sm text-zinc-500">
+                    친밀도 8 / 10
+                </p>
+                <p class="text-xs text-zinc-400 mt-3">
+                    2026.06.10
+                </p>
+            </div>
+        </a>
+    </div>
+
+</body>
+</html>

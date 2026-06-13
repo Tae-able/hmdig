@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" class="antialiased">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>얼마 받았더라?</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css">
+    <link href="https://api.fontshare.com/v2/css?f[]=geist@400,500,600,700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
+</head>
+
+<body class="bg-surface-50 flex flex-col justify-start min-h-screen gap-4">
+    <div class="w-full min-h-screen bg-surface-50 flex flex-col relative">
+        <div class="flex flex-col w-full text-center px-3">
+            <h2 class="text-xl font-extrabold text-zinc-950 tracking-tight mb-6">
+                소셜 로그인 연동 안내
+            </h2>
+
+    <span class="text-lg text-zinc-900 whitespace-pre-line w-full max-w-[480px] mx-auto">
+    소셜 로그인은 각 플랫폼에서 발급받은
+    Client ID와 Redirect URI가 있어야 동작 가능.
+
+    실제 연동용 공식 OAuth 주소
+
+    카카오: https://kauth.kakao.com/oauth/authorize?client_id=발급받은KEY
+    네이버: https://nid.naver.com/oauth2.0/authorize
+    구글: https://accounts.google.com/o/oauth2/v2/auth
+    애플: https://appleid.apple.com/auth/authorize
+    페이스북: https://www.facebook.com/v18.0/dialog/oauth
+
+    플랫폼에서 발급받은 Client ID와 Redirect URI가
+    있어야 동작하며,
+    지금 단계에서는 위 HTML처럼 더미 페이지로 연결해두고, 
+    앱 출시 직전에 OAuth를 붙일 예정.
+    </span>
+
+        </div>
+    </div>
+</body>
+</html>
